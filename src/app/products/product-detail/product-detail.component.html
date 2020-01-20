@@ -1,0 +1,38 @@
+<div class="row"
+    *ngIf="selectedProduct; else detailText">
+    <div class="col-12">
+        <div>
+            <img 
+                src="{{ selectedProduct.imagePath }}" 
+                alt="{{ selectedProduct.name }}" 
+                class="img-responsive img-detail">
+        </div>
+    </div>
+    <div class="col-12">
+        <h1>{{ selectedProduct.name }}</h1>
+        <p class="list-group-item-text"> Rodzaj prduktu: {{ selectedProduct.productType}}</p>
+        <p class="list-group-item-text"> Grubość sznurka: {{ selectedProduct.ropeSize }}</p>
+        <p class="list-group-item-text"> Kolor: {{ selectedProduct.color }}</p>
+        <p class="list-group-item-text">{{ selectedProduct.description }}</p>
+        <div class="row d-flex justify-content-between">
+
+            <button 
+                class="btn-detail btn btn-outline-info col-sm-6 col-xs-12"
+                [routerLink]="['/product',selectedProduct.id, 'patterns']">Przejdź do schematu</button>   
+            <button 
+                class="btn-detail btn btn-outline-info col-sm-6 col-xs-12"
+                [routerLink]="['comment']">Dodaj komentarz</button>   
+            <button
+                class="btn-detail btn btn-outline-info col-sm-6 col-xs-12"
+                [routerLink]="['/product',selectedProduct.id, 'edit']">Edytuj</button>
+            <button 
+                class="btn-detail btn btn-outline-danger col-sm-6 col-xs-12"
+                [routerLink]="['/product',selectedProduct.id, 'patterns']">Usuń produkt</button>
+        </div>
+    </div>
+</div>
+
+<ng-template #detailText>
+        <p>Proszę wybrać produkt by wyświetliś szczegóły.</p>
+    </ng-template>
+

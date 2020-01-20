@@ -1,0 +1,17 @@
+<a 
+    href="#" 
+    class="list-group-item clearfix col-12 item"
+    [routerLink]="['/product', product.id]">
+    <span class="float-left mr-4">
+        <img 
+            src="{{product.imagePath}}"
+            alt="{{product.name}}"
+            class="img-responsive"
+            style="max-width: 150px; ">
+    </span>
+    <div 
+        class="flot-right"
+        style="max-width: 500px;">
+        <h6 class="list-group-item-heading">{{ product.name }}</h6>
+    </div>
+</a>

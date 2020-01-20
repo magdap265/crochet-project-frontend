@@ -1,0 +1,16 @@
+<a  
+    href="{{product.videoPath}}"
+    target="blanc"
+    class="list-group-item clearfix col-12">
+    <!-- <iframe src="sanitizeVideoPath(product.videoPath)" frameborder="0"></iframe>  -->
+    <iframe [src]='sanitizeVideoPath(product.videoPath)' width="640" height="360" frameborder="0"
+        webkitallowfullscreen mozallowfullscreen allowfullscreen>
+    </iframe>
+    <div 
+        style="max-width: 500px;">
+            <h4 class="list-group-item-heading">{{ product.name }}</h4>
+            <!-- <p>{{sanitizeVideoPath(product.videoPath)}}</p> -->
+    </div>
+</a>
+
+<button class="btn" [routerLink]="['/product', product.id]">Wróć</button>
