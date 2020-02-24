@@ -1,9 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-
-import { ProductsService } from 'src/app/products.service';
-import { Product } from 'src/app/product.model';
-import { ActivatedRoute } from '@angular/router';
+import {Pattern} from '../../../pattern.model';
+import {ProductsService} from '../../../products.service';
 
 @Component({
   selector: 'app-patterns-item',
@@ -11,19 +8,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./patterns-item.component.css']
 })
 export class PatternsItemComponent implements OnInit {
-  @Input() product: Product;
-  selectedProduct: Product;
-  constructor( 
-    private productsService: ProductsService, 
-    private sanitizer: DomSanitizer,
-    private productsRouter: ActivatedRoute) { }
+  @Input() pattern: Pattern;
+  constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
-    this.selectedProduct = this.productsService.selectedProduct;
   }
 
   sanitizeVideoPath(videoPath) {
-    let fixedUrl = videoPath.replace("watch?v=", "embed/");
-    return this.sanitizer.bypassSecurityTrustResourceUrl(fixedUrl)
+    return this.productsService.sanitizeVideoPath(videoPath);
   }
 }

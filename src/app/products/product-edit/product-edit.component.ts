@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
-import { Product } from 'src/app/product.model';
-import { ProductsService} from '../../products.service';
-import { Router } from "@angular/router"
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {Product} from 'src/app/product.model';
+import {ProductsService} from '../../products.service';
+import {Router} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-product-edit',
@@ -12,48 +13,41 @@ import { Router } from "@angular/router"
 })
 export class ProductEditComponent implements OnInit {
   selectedProduct: Product;
-  editProduct: boolean;
-  productList: Product[];
-  productForm
+  productForm;
+  productTypes = ['torebka', 'koszyk', 'inne'];
 
-
-  constructor( 
+  constructor(
     private productsService: ProductsService,
     private productsRouter: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private router: Router) 
-    {
-      this.productForm = this.formBuilder.group({
-        name: '',
-        type: '',
-        rSize: '',
-        color: '',
-        desc: ''
-      })
-    }
-
-  ngOnInit() {
-    this.selectedProduct = this.productsService.selectedProduct;
-    this.editProduct = this.productsService.editProduct;
-    this.productList = this.productsService.productsList;
-    this.productsRouter.paramMap.subscribe(params => {
-      this.selectedProduct = this.productList[params.get('id')]
-    })
-    if(this.selectedProduct) {
-      this.productForm = this.formBuilder.group({
-        name: this.selectedProduct.name,
-        productType: this.selectedProduct.productType,
-        ropeSize: this.selectedProduct.ropeSize,
-        color: this.selectedProduct.color,
-        description: this.selectedProduct.description
-      })
-    }
+    private router: Router,
+    private location: Location) {
+    this.productForm = this.formBuilder.group({
+      name: [new FormControl(''), Validators.required],
+      productType: [new FormControl(''), Validators.required],
+      ropeSize: [new FormControl(''), Validators.compose([Validators.required, Validators.min(1)])],
+      color: [new FormControl(''), Validators.required],
+      description: [new FormControl(''), Validators.required],
+      imagePath: [new FormControl(''), Validators.required],
+      videoPath: [new FormControl(''), Validators.required]
+    });
   }
 
+  ngOnInit() {
+    this.productsRouter.paramMap.subscribe(params => {
+      this.productsService.getProductItem(params.get('id'))
+        .subscribe(product => {
+          return this.selectedProduct = product;
+        });
+    });
+  }
 
-  onSave(productData){
-    this.router.navigate(['/product', this.selectedProduct["id"]]);
-    this.productsService.onChangeProductData(this.selectedProduct.id, productData)
+  goBack(): void {
+    this.location.back();
+  }
 
+  onSave(productData): void {
+    this.productsService.putProductItem(productData, this.selectedProduct)
+      .subscribe(() => this.goBack());
   }
 }

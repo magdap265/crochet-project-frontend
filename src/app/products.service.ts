@@ -1,33 +1,102 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
+import {Product} from './product.model';
+import {Comment} from './comment.model';
+import {Pattern} from './pattern.model';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {DomSanitizer} from '@angular/platform-browser';
 
-import { Product } from './product.model'; 
+// const apiUrl = 'http://project.test/api';
+const apiUrl = 'https://sleepy-oasis-15035.herokuapp.com/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  productsList: Product[] = [
-    new Product(0,'Ściągana torba z długim paskiem', 'torba', 'żółty', 3, 'Średniej wielkości żółta torebka z długim paskiem przewiązana sznurkiem pozwalającym na ściagniecie jej i zawiązanie.', 'https://i.pinimg.com/236x/c8/b3/68/c8b368882396e20d568323ede686d492.jpg', 'https://www.youtube.com/watch?v=MAbONHNAE2Q'),
-    new Product(1,'Elegancka torba na ramię z zawieszką', 'torba', 'niebieski', 3, 'Niebieska torba na ramię z ozdobnym chostem mieszcząca format A4.', 'http://trzykotypracownia.pl/wp-content/uploads/2019/07/IMG_20190710_172842-200x200.jpg', 'https://www.youtube.com/watch?v=MAbONHNAE2Q'),
-    new Product(2,'Świąteczny koszyk', 'koszyk', 'czerwony, zielony', 5, 'Dwukolorowy koszyk ozdobny w klimcie świątecznym.', 'https://6.allegroimg.com/original/0cfded/c41977634025803caab340a94046', 'https://www.youtube.com/watch?v=MAbONHNAE2Q')
-  ]
-  
-  selectedProduct: Product;
-  editProduct = false;
 
-  constructor() { }
-
-  onSelectedProduct(productWasSelected: Product){
-    this.selectedProduct = productWasSelected;
+  constructor(
+    private http: HttpClient, private sanitizer: DomSanitizer) {
   }
 
-  onChangeProductData(id, productData){
-    this.productsList[id].name = productData.name;
-    this.productsList[id].productType = productData.productType;
-    this.productsList[id].ropeSize = productData.ropeSize;
-    this.productsList[id].color = productData.color;
-    this.productsList[id].description = productData.description;
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${apiUrl}/products`)
+      .pipe();
   }
 
-  // nazwa_funkcji(this.selectedProduct["id"]], obiekt)
+  getProductItem(id): Observable<Product> {
+    return this.http.get<Product>(`${apiUrl}/products/${id}`)
+      .pipe();
+  }
+
+  putProductItem(editedData, oryginalData): Observable<Product> {
+    const newData = oryginalData;
+    typeof editedData.name !== 'object' ? newData.name = editedData.name : null;
+    typeof editedData.productType !== 'object' ? newData.productType = editedData.productType : null;
+    typeof editedData.color !== 'object' ? newData.color = editedData.color : null;
+    typeof editedData.ropeSize !== 'object' ? newData.ropeSize = editedData.ropeSize : null;
+    typeof editedData.description !== 'object' ? newData.description = editedData.description : null;
+    typeof editedData.imagePath !== 'object' ? newData.imagePath = editedData.imagePath : null;
+    typeof editedData.videoPath !== 'object' ? newData.videoPath = editedData.videoPath : null;
+    console.log(newData);
+    return this.http.put<Product>(
+      `${apiUrl}/products/${oryginalData.id}`,
+      newData,
+      {
+        headers: new HttpHeaders({'Content-Type': 'application/json'})
+      })
+      .pipe(
+      //   tap(_ => '')
+      );
+  }
+
+  postProductItem(productData): Observable<Product> {
+    return this.http.post<Product>(`${apiUrl}/products/add`, productData)
+      .pipe(
+      );
+  }
+
+  deleteProductItem(id): Observable<Product> {
+    return this.http.delete<Product>(`${apiUrl}/products/${id}`)
+      .pipe();
+  }
+
+  getPatterns(): Observable<Pattern[]> {
+    return this.http.get<Pattern[]>(`${apiUrl}/patterns`)
+      .pipe();
+  }
+
+  getPatternByProductId(id): Observable<Product> {
+    return this.http.get<Product>(`${apiUrl}/products/${id}/pattern`)
+      .pipe();
+  }
+
+
+  getCommentsByProductId(id): Observable<Comment[]> {
+    return this.http.get<Comment[]>(`${apiUrl}/products/${id}/comments`)
+      .pipe(
+      );
+  }
+
+  getComments(): Observable<Comment[]> {
+    return this.http.get<Comment[]>(`${apiUrl}/comments`)
+      .pipe(
+      );
+  }
+
+  postComment(commentData): Observable<Comment> {
+    return this.http.post<Comment>(`${apiUrl}/comments`, commentData)
+      .pipe(
+          // tap(_ => '')
+      );
+  }
+
+  sanitizeVideoPath(videoPath) {
+    if (videoPath) {
+      const fixedUrl = videoPath.replace('watch?v=', 'embed/');
+      return this.sanitizer.bypassSecurityTrustResourceUrl(fixedUrl);
+    }
+    return null;
+  }
 }
+

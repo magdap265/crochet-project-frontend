@@ -1,15 +1,26 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Crochet</a>
-        </div>
-        <div class="row justify-content-md-center container collapse navbar-collapse">
-            <div class="col row justify-content-md-center navbar-nav">
-                <a class="col nav-item nav-link  active" [routerLink] = "['/products']">Produkty</a>
-                <a class="col nav-item nav-link" [routerLink] = "['/patterns']">Schematy</a>
-                <a class="col nav-item nav-link" [routerLink] = "['/comment']">Kontakt</a>
-            </div>
-        </div>
-    </div>
+<nav class="navbar navbar-expand-md container-fluid ">
+  <div class="nav-brand col-lg-4 col-xl-2">Crochet
+  </div>
+  <div class="col-lg-6 col-xl-8">
+    <ul class="navbar-nav justify-content-around">
+      <li class="nav-item">
+        <a class="nav-link"
+           [routerLink]="['/products']"
+           [routerLinkActive]="['active']"
+        >Produkty</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           [routerLink]="['/patterns']"
+           [routerLinkActive]="['active']"
+        >Schematy</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           [routerLink]="['/comments']"
+           [routerLinkActive]="['active']"
+        >Komentarze</a>
+      </li>
+    </ul>
+  </div>
 </nav>
-<hr>

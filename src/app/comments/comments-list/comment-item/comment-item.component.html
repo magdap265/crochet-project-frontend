@@ -1,0 +1,25 @@
+<ul class="list-group list-group-flush">
+  <li class="list-group-item">
+    <div class="media">
+      <img class="mr-md-3" src={{comment.imagePath}} width="20%">
+      <div class="media-body">
+        <div class="row"><h5 class="col-10 text-truncate">{{comment.productName}}</h5></div>
+        <div class="row">
+          <h6 class="col-xs-12 col-md-8">@{{comment.username}}</h6>
+          <app-rating class="col-xs-12 col-md-4" [rating]="comment.rating"></app-rating>
+        </div>
+        <p class="">{{comment.opinion}}</p>
+      </div>
+
+<!--      <div class="media-body">-->
+<!--        <div class="row"><h5 class="col-10 text-truncate">{{comment.productName}}</h5></div>-->
+<!--        <div class="row">-->
+<!--          <h6 class="col-xs-12 col-md-8">@{{comment.username}}</h6>-->
+<!--          <app-rating class="col-xs-12 col-md-4" [rating]="comment.rating"></app-rating>-->
+<!--        </div>-->
+<!--        <p class="">{{comment.opinion}}</p>-->
+<!--      </div>-->
+    </div>
+  </li>
+</ul>
+

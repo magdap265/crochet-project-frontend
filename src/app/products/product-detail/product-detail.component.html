@@ -1,38 +1,79 @@
 <div class="row"
-    *ngIf="selectedProduct; else detailText">
-    <div class="col-12">
-        <div>
-            <img 
-                src="{{ selectedProduct.imagePath }}" 
-                alt="{{ selectedProduct.name }}" 
-                class="img-responsive img-detail">
-        </div>
+     *ngIf="selectedProduct; else detailText">
+  <div class="col-12">
+    <div class="d-flex justify-content-center">
+      <img
+        class="img-responsive"
+        src="{{ selectedProduct.imagePath }}"
+        alt="{{ selectedProduct.name }}"
+        height="300px">
     </div>
-    <div class="col-12">
-        <h1>{{ selectedProduct.name }}</h1>
-        <p class="list-group-item-text"> Rodzaj prduktu: {{ selectedProduct.productType}}</p>
-        <p class="list-group-item-text"> Grubość sznurka: {{ selectedProduct.ropeSize }}</p>
-        <p class="list-group-item-text"> Kolor: {{ selectedProduct.color }}</p>
-        <p class="list-group-item-text">{{ selectedProduct.description }}</p>
-        <div class="row d-flex justify-content-between">
-
-            <button 
-                class="btn-detail btn btn-outline-info col-sm-6 col-xs-12"
-                [routerLink]="['/product',selectedProduct.id, 'patterns']">Przejdź do schematu</button>   
-            <button 
-                class="btn-detail btn btn-outline-info col-sm-6 col-xs-12"
-                [routerLink]="['comment']">Dodaj komentarz</button>   
-            <button
-                class="btn-detail btn btn-outline-info col-sm-6 col-xs-12"
-                [routerLink]="['/product',selectedProduct.id, 'edit']">Edytuj</button>
-            <button 
-                class="btn-detail btn btn-outline-danger col-sm-6 col-xs-12"
-                [routerLink]="['/product',selectedProduct.id, 'patterns']">Usuń produkt</button>
-        </div>
+    <h3 class="d-flex justify-content-center py-4 font-weight-bold">{{ selectedProduct.name }}</h3>
+    <table class="table">
+      <tbody>
+      <tr>
+        <th scope="row">
+          Rodzaj prduktu
+        </th>
+        <td>{{ selectedProduct.productType}}</td>
+      </tr>
+      <tr>
+        <th scope="row">
+          Grubość sznurka
+        </th>
+        <td>{{ selectedProduct.ropeSize}}</td>
+      </tr>
+      <tr>
+        <th scope="row">
+          Kolor
+        </th>
+        <td>{{ selectedProduct.color}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="description pb-1 ml-2">
+      <b>Opis produktu:</b> {{ selectedProduct.description }}
+    </p>
+    <div class="row d-flex justify-content-around mt-2">
+      <button
+        [disabled]="selectedProduct.videoPath==''"
+        class="btn btn-outline-info col-sm-5 col-xs-12 font-weight-bold mb-3 py-1"
+        [routerLink]="['/products',selectedProduct.id, 'pattern']">Przejdź do schematu
+      </button>
+      <button
+        class="btn-detail btn btn-outline-info col-sm-5 col-xs-12 font-weight-bold mb-3 py-1"
+        [routerLink]="['/products',selectedProduct.id,'comment']">Dodaj komentarz
+      </button>
+      <button
+        class="btn-detail btn btn-outline-info col-sm-5 col-xs-12 font-weight-bold py-1"
+        [routerLink]="['/products',selectedProduct.id, 'edit']">Edytuj
+      </button>
+      <button
+        class="btn-detail btn btn-outline-danger col-sm-5 col-xs-12 font-weight-bold py-1"
+        (click)="onDelete(selectedProduct.id)">Usuń produkt
+      </button>
     </div>
+    <div class="comments mt-5">
+      <h4>Komentarze</h4>
+      <div class="">
+        <ul class="">
+          <li class="media" *ngFor="let comment of selectedProductComments">
+            <i class="mr-3 material-icons icon">comment</i>
+            <div class="media-body">
+              <div class="row">
+                <h5 class="nick font-weight-bold p-2 float-left col-6"> @{{comment.username}}</h5>
+                <app-rating class="float-right col-6" [rating]="comment.rating"></app-rating>
+              </div>
+              <p class="">{{comment.opinion}}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <ng-template #detailText>
-        <p>Proszę wybrać produkt by wyświetliś szczegóły.</p>
-    </ng-template>
+  <p>Proszę wybrać produkt by wyświetlić szczegóły.</p>
+</ng-template>
 

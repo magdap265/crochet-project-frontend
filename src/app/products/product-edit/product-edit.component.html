@@ -1,26 +1,81 @@
-<div class="row">
-    <img class="col-3" style="max-height: 200px;" src="{{ selectedProduct.imagePath }}" alt="Torebka ze ściągaczem">
-    <form  [formGroup]="productForm" class="col-9" (ngSubmit)="onSave(productForm.value)">
+<div class="row d-flex justify-content-center" *ngIf="selectedProduct && selectedProduct.imagePath; else loading">
+  <img class="col-xs-10 col-md-3"
+       src="{{ selectedProduct.imagePath }}"
+       alt="Torebka">
+  <form [formGroup]="productForm" class="col-xs-10 col-md-7"
+        (ngSubmit)="onSave(productForm.value)">
 
-        <div class="form-group">
-            <label for="name">Nazwa produktu</label>
-            <input class="form-control" type="text" id="name" formControlName="name" value="{{selectedProduct.name}}">
+    <div class="form-group">
+      <label for="name">Nazwa produktu</label>
+      <span class="alert" *ngIf="!productForm.controls['name'].valid && productForm.controls['name'].touched">
+              Wartość jest wymagana
+            </span>
+      <input class="form-control" type="text" id="name" formControlName="name" value="{{selectedProduct.name}}"
+             [ngClass]="{'in-valid': !productForm.controls['name'].valid && (productForm.controls['name'].touched)}">
 
-            <label for="productType">Rodzaj produktu</label>
-            <input class="form-control" type="text" id="productType" formControlName="productType" value="{{selectedProduct.productType}}">
+      <label for="productType">Rodzaj produktu</label>
+      <span class="alert"
+            *ngIf="!productForm.controls['productType'].valid && productForm.controls['productType'].touched">
+              Wartość jest wymagana
+            </span>
+      <select class="form-control" type="text" id="productType" formControlName="productType">
+        <option selected="{{selectedProduct.productType}}" *ngFor="let pt of productTypes" [value]="pt">
+          {{pt}} </option>
+      </select>
 
-            <label for="ropeSize">Grubość sznurka</label>
-            <input class="form-control" type="text" id="ropeSize" formControlName="ropeSize" value="{{selectedProduct.ropeSize}}">
+      <label for="ropeSize">Grubość sznurka</label>
+      <span class="alert" *ngIf="!productForm.controls['ropeSize'].valid && productForm.controls['ropeSize'].touched">
+              Wprowadź liczbę od 1 do 9
+            </span>
+      <input class="form-control" type="number" id="ropeSize" formControlName="ropeSize"
+             value="{{selectedProduct.ropeSize}}"
+             [ngClass]="{'in-valid': !productForm.controls['ropeSize'].valid && productForm.controls['ropeSize'].touched}">
 
-            <label for="color">Kolor</label>
-            <input class="form-control" type="text" id="color" formControlName="color" value="{{selectedProduct.color}}">
+      <label for="color">Kolor</label>
+      <span class="alert" *ngIf="!productForm.controls['color'].valid && productForm.controls['color'].touched">
+              Wartość jest wymagana
+            </span>
+      <input class="form-control" type="text" id="color" formControlName="color" value="{{selectedProduct.color}}"
+             [ngClass]="{'in-valid': !productForm.controls['color'].valid && productForm.controls['color'].touched}">
 
-            <label for="description">Opis</label>
-            <textarea class="form-control" id="description" formControlName="description" cols="20" rows="5" value="{{selectedProduct.description}}"></textarea>
-            <button 
-                type="submit" 
-                class="btn btn-dark btn-lg"
-                >Zapisz</button>
-        </div>
-    </form>
+      <label for="description">Opis</label>
+      <span class="alert"
+            *ngIf="!productForm.controls['description'].valid && productForm.controls['description'].touched">
+              Wartość jest wymagana
+            </span>
+      <textarea class="form-control" id="description" formControlName="description" cols="20" rows="5"
+                value="{{selectedProduct.description}}"></textarea>
+
+
+      <label for="imagePath">Link do zdjęcia</label>
+      <span class="alert" *ngIf="!productForm.controls['imagePath'].valid && productForm.controls['imagePath'].touched">
+              Wartość jest wymagana
+            </span>
+      <input class="form-control" type="text" id="imagePath" formControlName="imagePath"
+             value="{{selectedProduct.imagePath}}"
+             [ngClass]="{'in-valid': !productForm.controls['imagePath'].valid && productForm.controls['imagePath'].touched}">
+
+
+      <label for="videoPath">Link do video</label>
+      <span class="alert" *ngIf="!productForm.controls['videoPath'].valid && productForm.controls['videoPath'].touched">
+              Wartość jest wymagana
+            </span>
+      <input class="form-control" type="text" id="videoPath" formControlName="videoPath"
+             value="{{selectedProduct.videoPath}}"
+             [ngClass]="{'in-valid': !productForm.controls['videoPath'].valid && productForm.controls['videoPath'].touched}">
+
+      <button
+        type="submit"
+        class="btn btn-dark btn-lg"
+        [disabled]="!productForm.valid"
+      >Zapisz
+      </button>
+    </div>
+  </form>
 </div>
+
+<ng-template #loading>
+  <div class="d-flex justify-content-center mt-5">
+    <div class="spinner-border"></div>
+  </div>
+</ng-template>

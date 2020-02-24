@@ -1,6 +1,6 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Product } from '../../product.model';
-import { ProductsService} from '../../products.service';
+import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Product} from '../../product.model';
+import {ProductsService} from '../../products.service';
 
 @Component({
   selector: 'app-products-list',
@@ -8,16 +8,18 @@ import { ProductsService} from '../../products.service';
   styleUrls: ['./products-list.component.css']
 })
 export class ProductsListComponent implements OnInit {
-  productsList: Product[]; 
-  selectedProduct: Product;
-  constructor( private productsService: ProductsService ) { }
+  productsList: Product[];
+  selected = false;
+
+  constructor(private productsService: ProductsService) {
+  }
 
   ngOnInit() {
-    this.productsList = this.productsService.productsList;
+    this.getProducts();
   }
 
-  ngDoCheck(){
-    this.selectedProduct = this.productsService.selectedProduct;
+  getProducts(): void {
+    this.productsService.getProducts()
+      .subscribe(products => this.productsList = products);
   }
-
 }

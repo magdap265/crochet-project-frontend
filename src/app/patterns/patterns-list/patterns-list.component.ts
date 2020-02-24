@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/products.service';
-import { Product } from 'src/app/product.model';
-import { ActivatedRoute } from '@angular/router';
+import { Pattern } from 'src/app/pattern.model';
 
 @Component({
   selector: 'app-patterns-list',
@@ -9,21 +8,17 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./patterns-list.component.css']
 })
 export class PatternsListComponent implements OnInit {
-  productsList: Product[];
-  selectedProduct: Product;
+  patternsList: Pattern[];
 
   constructor(
-    private productsService: ProductsService,
-    private productsRouter: ActivatedRoute) { }
+    private productsService: ProductsService) { }
 
   ngOnInit() {
-    this.productsList = this.productsService.productsList;
-    this.selectedProduct = this.productsService.selectedProduct;
-    // this.editProduct = this.productsService.editProduct;
-    this.productsList = this.productsService.productsList;
-    this.productsRouter.paramMap.subscribe(params => {
-      this.selectedProduct = this.productsList[params.get('id')]
-    })
+    this.getPatterns();
   }
 
+  getPatterns(): void {
+    this.productsService.getPatterns()
+      .subscribe(patterns => this.patternsList = patterns);
+  }
 }

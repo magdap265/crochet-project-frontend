@@ -1,0 +1,17 @@
+img {
+  width: auto;
+  max-height: 180px;
+}
+
+.in-valid {
+  border: 1px solid red;
+}
+
+.alert {
+  color: red;
+}
+
+.spinner-border {
+  width: 80px;
+  height: 80px;
+}

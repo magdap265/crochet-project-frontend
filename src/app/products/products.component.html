@@ -1,16 +1,15 @@
 <div class="row products">
-    <div
-        class="col-md-5 float-left col-xs-12">
-        <app-products-list >
-                <router-outlet></router-outlet>
-        </app-products-list>
-        <button class="btn btn-block btn-success" [routerLink]="['/product', 'edit']">Dodaj nowy produkt</button>
-    </div>
+  <div
+    class="col-md-6 float-left col-xs-12  border-right">
+    <button class="btn btn-block btn-add" [routerLink]="['/products/add']">Dodaj nowy produkt</button>
+    <app-products-list>
+    </app-products-list>
+  </div>
 
-    <div 
-        class="col-md-6 float-rihgt col-xs-12">
-        <app-product-detail
-        ></app-product-detail>
-    </div>
+  <div
+    class="col-md-6 col-xs-12">
+    <app-product-detail
+    ></app-product-detail>
+  </div>
 </div>
 

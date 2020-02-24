@@ -1,3 +1,18 @@
-.products{
-    font-size: 20px;
+body {
+ background: #aaa;
+}
+.products {
+  font-size: 20px;
+}
+
+.btn-add {
+  margin-bottom: 20px;
+  background-color: #D6CA46;
+  color: #444444;
+  font-weight: bold;
+}
+
+.btn-add:hover {
+  background-color: #c5b935;
+  color: #1f868f;
 }

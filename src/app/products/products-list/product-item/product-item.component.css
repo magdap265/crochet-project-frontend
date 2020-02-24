@@ -1,8 +1,14 @@
 a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
+  opacity: 70%;
+  transition: 400ms;
 }
 
-a:hover{
-    color: #444;
+a:hover {
+  opacity: 100%;
+}
+
+.active {
+  opacity: 100%;
 }

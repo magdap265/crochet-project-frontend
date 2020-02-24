@@ -1,0 +1,68 @@
+<div class="card" *ngIf="selectedProduct && selectedProduct.name; else loading">
+  <h4 class="mb-5 card-header">Bardzo nam miło gościć Cię u nas. Zostaw swoj komentarz i twórz z nami jeszcze lepsze
+    projekty! </h4>
+  <form class="p-4 card-body" [formGroup]="commentForm" (ngSubmit)="onComment(commentForm.value)">
+    <h4 class="mb-3">Jak oceniasz "{{ selectedProduct.name }}"?</h4>
+    <div class="form-group">
+      <label for="username">Nick</label>
+      <span class="alert" *ngIf="!commentForm.controls['username'].valid && commentForm.controls['username'].touched">
+        To pole jest wymagane
+      </span>
+      <input type="text" class="form-control" id="username" formControlName="username"
+             [ngClass]="{'in-valid': !commentForm.controls['username'].valid && commentForm.controls['username'].touched}">
+    </div>
+
+    <div class="form-group">
+      <label for="opinion">Opinia o produkcie</label>
+      <span class="alert" *ngIf="!commentForm.controls['opinion'].valid && commentForm.controls['opinion'].touched">
+        To pole jest wymagane (maksymalnie 1000 znaków)
+      </span>
+      <textarea class="form-control" id="opinion" rows="5" formControlName="opinion"
+                [ngClass]="{'in-valid': !commentForm.controls['opinion'].valid && commentForm.controls['opinion'].touched}">
+></textarea>
+    </div>
+    <fieldset class="form-group">
+      <div class="row">
+        <legend class="col-form-label col-sm-12 pt-0">Ocena produktu</legend>
+        <span class="alert" *ngIf="!commentForm.controls['rating'].valid && commentForm.controls['rating'].touched">
+              Nazwa jest wymagana
+            </span>
+        <div class="col-sm-12">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="rating" id="inlineRadio1" value="1">
+            <label class="form-check-label" for="inlineRadio1">1</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="rating" id="inlineRadio2" value="2">
+            <label class="form-check-label" for="inlineRadio2">2</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="rating" id="inlineRadio3" value="3">
+            <label class="form-check-label" for="inlineRadio3">3</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="rating" id="inlineRadio4" value="4">
+            <label class="form-check-label" for="inlineRadio4">4</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="rating" id="inlineRadio5" value="5">
+            <label class="form-check-label" for="inlineRadio5">5</label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <!--    [routerLink]="['/products/', selectedProduct.id]"-->
+    <button
+      type="submit"
+      class="btn btn-outline-dark font-weight-bold"
+      [disabled]="!commentForm.valid"
+    >Wyślij
+    </button>
+  </form>
+</div>
+
+<ng-template #loading>
+  <div class="d-flex justify-content-center mt-5">
+    <div class="spinner-border"></div>
+  </div>
+</ng-template>

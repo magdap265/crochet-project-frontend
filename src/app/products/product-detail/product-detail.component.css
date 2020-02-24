@@ -1,15 +1,25 @@
-.img-detail{
-    max-height: 300px; 
-    min-height: 200px; 
-    max-width: 400px; 
-    display: flex;
-    margin: auto;
+.description {
+  border-bottom: 1px solid #dee2e6;
 }
 
-.btn-detail{
-    font-weight: bold;
-    font-size: medium;
-    margin-bottom: 5px;
-
+.table {
+  border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
 }
 
+.btn {
+  font-size: medium;
+}
+
+.nick {
+  color: #006064;
+}
+
+.comment-text {
+  font-size: medium;
+}
+
+.icon {
+  font-size: 50px;
+  color: #555555;
+}

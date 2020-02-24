@@ -1,0 +1,62 @@
+<div class="row card">
+  <h3 class="card-header text-center">Wypełnij wszystkie pola by dodać nowy produkt</h3>
+  <form [formGroup]="productForm" class="col-11 card-body mx-auto my-3" (ngSubmit)="onAdd(productForm.value)">
+    <label for="name">Nazwa produktu</label>
+    <span class="alert" *ngIf="!productForm.controls['name'].valid && productForm.controls['name'].touched">
+              Nazwa jest wymagana
+            </span>
+    <input class="form-control" type="text" id="name" formControlName="name"
+           [ngClass]="{'in-valid': !productForm.controls['name'].valid && (productForm.controls['name'].touched)}">
+
+    <label for="productType">Rodzaj produktu</label>
+    <span class="alert"
+          *ngIf="!productForm.controls['productType'].valid && productForm.controls['productType'].touched">
+              Rodzaj jest wymagany
+            </span>
+    <select class="form-control" type="text" id="productType" formControlName="productType">
+      <option *ngFor="let pt of productTypes" [value]="pt"> {{pt}} </option>
+    </select>
+
+    <label for="ropeSize">Grubość sznurka</label>
+    <span class="alert" *ngIf="!productForm.controls['ropeSize'].valid && productForm.controls['ropeSize'].touched">
+              Grugośc sznurka jest wymagana i może być liczbą od 1 do 9
+            </span>
+    <input class="form-control" type="number" id="ropeSize" formControlName="ropeSize"
+           [ngClass]="{'in-valid': !productForm.controls['ropeSize'].valid && productForm.controls['ropeSize'].touched}">
+
+    <label for="color">Kolor</label>
+    <span class="alert" *ngIf="!productForm.controls['color'].valid && productForm.controls['color'].touched">
+              Kolor jest wymagany
+            </span>
+    <input class="form-control" type="text" id="color" formControlName="color"
+           [ngClass]="{'in-valid': !productForm.controls['color'].valid && productForm.controls['color'].touched}">
+
+    <label for="description">Opis</label>
+    <span class="alert"
+          *ngIf="!productForm.controls['description'].valid && productForm.controls['description'].touched">
+              Opis jest wymagany i może składac się z maksymalnie 1000 znaków
+            </span>
+    <textarea class="form-control" id="description" formControlName="description" cols="20" rows="5"></textarea>
+
+    <label for="imagePath">Link do zdjęcia</label>
+    <span class="alert" *ngIf="!productForm.controls['imagePath'].valid && productForm.controls['imagePath'].touched">
+              Link do zdjęcia jest wymagany
+            </span>
+    <input class="form-control" type="text" id="imagePath" formControlName="imagePath"
+           [ngClass]="{'in-valid': !productForm.controls['imagePath'].valid && productForm.controls['imagePath'].touched}">
+
+    <label for="videoPath">Link do wideo</label>
+    <span class="alert" *ngIf="!productForm.controls['videoPath'].valid && productForm.controls['videoPath'].touched">
+              Link do wideo jest wymagany
+            </span>
+    <input class="form-control" type="text" id="videoPath" formControlName="videoPath"
+           [ngClass]="{'in-valid': !productForm.controls['videoPath'].valid && productForm.controls['videoPath'].touched}">
+    <br>
+    <button
+      type="submit"
+      class="btn btn-dark btn-lg"
+      [disabled]="!productForm.valid"
+    >Zapisz
+    </button>
+  </form>
+</div>

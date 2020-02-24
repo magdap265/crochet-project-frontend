@@ -1,9 +1,11 @@
 <div class="row">
-    <div class="col-12">
-        <app-product-item
-            *ngFor="let productItem of productsList"
-            [product]="productItem">
-            <router-outlet></router-outlet>
-        </app-product-item>
-    </div>
+  <div class="col-12 list-group list-group-flush">
+    <app-product-item
+      class="list-group-item"
+      *ngFor="let productItem of productsList"
+      [product]="productItem"
+    >
+      <router-outlet></router-outlet>
+    </app-product-item>
+  </div>
 </div>

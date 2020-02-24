@@ -1,16 +1,15 @@
-<a  
-    href="{{product.videoPath}}"
-    target="blanc"
-    class="list-group-item clearfix col-12">
-    <!-- <iframe src="sanitizeVideoPath(product.videoPath)" frameborder="0"></iframe>  -->
-    <iframe [src]='sanitizeVideoPath(product.videoPath)' width="640" height="360" frameborder="0"
-        webkitallowfullscreen mozallowfullscreen allowfullscreen>
-    </iframe>
-    <div 
-        style="max-width: 500px;">
-            <h4 class="list-group-item-heading">{{ product.name }}</h4>
-            <!-- <p>{{sanitizeVideoPath(product.videoPath)}}</p> -->
-    </div>
-</a>
+<div class="row d-flex justify-content-between p-5">
+  <div class="video-header col-10 mb-3 text-truncate">
+    {{ pattern.productName }}
+  </div>
+  <div class="embed-responsive embed-responsive-16by9">
+    <a class="embed-responsive-item "
+       href="{{pattern.videoPath}}"
+       target="blanc">
+      <iframe class="video" [src]='sanitizeVideoPath(pattern.videoPath)' frameborder="0"
+              webkitallowfullscreen mozallowfullscreen allowfullscreen>
+      </iframe>
+    </a>
+  </div>
+</div>
 
-<button class="btn" [routerLink]="['/product', product.id]">Wróć</button>

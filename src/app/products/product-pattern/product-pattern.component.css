@@ -1,0 +1,15 @@
+.container {
+  width: 80%;
+}
+
+.pattern-header {
+  padding-bottom: 20px;
+  text-align: center;
+  color: darkcyan;
+}
+
+.spinner-border {
+  width: 80px;
+  height: 80px;
+
+}
