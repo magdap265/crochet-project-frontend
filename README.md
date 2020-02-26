@@ -4,6 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Live demo
 [Frontend](http://magdap.ct8.pl/)
+Backend is running on free plan on heroku. If data is not available wait a few seconds,  please.
+
 ## Documentation
 
 This project consists of four main components: header, products, comments and patterns.
