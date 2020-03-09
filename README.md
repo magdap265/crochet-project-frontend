@@ -3,7 +3,10 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
 ## Live demo
+## Live demo
 [Frontend](http://magdap.ct8.pl/)
+
+[Backend](https://sleepy-oasis-15035.herokuapp.com/api/products)
 Backend is running on free plan on heroku. If data is not available wait a few seconds,  please.
 
 ## Documentation
